@@ -1,0 +1,97 @@
+/* src/pages/css/AdminUsers.css */
+
+/* Estilos Generales */
+.admin-users {
+    max-width: 100%;
+    padding: 1rem;
+}
+
+.admin-users h2 {
+    margin-bottom: 1rem;
+    color: #0000ff;
+    text-align: center;
+}
+
+.admin-user-search {
+    margin-bottom: 1rem;
+    text-align: right;
+}
+
+.admin-user-search input {
+    width: 100%;
+    max-width: 300px;
+    padding: 0.5rem;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.admin-user-search input:focus {
+    border-color: #0000ff;
+    outline: none;
+}
+
+.admin-users table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 500px;
+}
+
+.admin-users th,
+.admin-users td {
+    border: 1px solid #dddddd;
+    padding: 0.75rem;
+    text-align: left;
+}
+
+.admin-users th {
+    background-color: #f4f4f4;
+    color: #333333;
+}
+
+.admin-users button {
+    margin-right: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    background-color: #ff4d4d;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.admin-users button:hover {
+    background-color: #ff1a1a;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .admin-users {
+        padding: 0.5rem;
+    }
+
+    .admin-users h2 {
+        font-size: 1.5rem;
+    }
+
+    .admin-user-search input {
+        max-width: 100%;
+    }
+
+    .admin-users table {
+        min-width: 100%;
+    }
+
+    .admin-users th,
+    .admin-users td {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .admin-users button {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.8rem;
+    }
+}

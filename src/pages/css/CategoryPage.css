@@ -1,0 +1,30 @@
+.category-page {
+    padding: 2rem;
+    min-height: 80vh;
+    overflow-x: hidden;
+}
+
+.category-title {
+    text-align: center;
+    color: #0000ff;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.category__products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+@media (max-width: 480px) {
+    .category-title {
+        font-size: 1.5rem;
+    }
+
+    .category__products {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1.5rem;
+    }
+}

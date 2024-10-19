@@ -1,0 +1,68 @@
+/* src/components/css/CheckoutForm.css */
+
+.checkout-form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 1rem;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.checkout-form h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.product-list {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 1rem;
+}
+
+.product-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.checkout-form h3 {
+    text-align: right;
+    margin-bottom: 1rem;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px;
+    width: 100%;
+    background-color: #28a745;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* Estilos para móviles */
+@media (max-width: 600px) {
+    .checkout-form {
+        padding: 0.5rem;
+    }
+
+    .product-list li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .product-list li span {
+        margin-top: 0.5rem;
+    }
+
+    .checkout-form h3 {
+        text-align: left;
+    }
+}

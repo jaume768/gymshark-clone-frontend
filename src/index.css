@@ -1,0 +1,39 @@
+/* src/index.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+  background-color: white;
+  color: black;
+}
+
+.container, 
+.homepage__header, 
+.homepage__products, 
+.category-page, 
+.cart-page, 
+.product-page, 
+.login-page, 
+.register-page {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+table {
+  width: 100%;
+  overflow-x: auto;
+}
+
+html {
+  scroll-behavior: smooth;
+}
