@@ -28,7 +28,8 @@ const AdminProducts = () => {
 
     useEffect(() => {
         filterProducts();
-    }, [search, products.length]);
+    }, [search, products.length, filterProducts]);
+
 
     const fetchProducts = async () => {
         try {

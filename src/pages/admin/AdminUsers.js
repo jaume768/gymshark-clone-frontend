@@ -14,11 +14,12 @@ const AdminUsers = () => {
 
     useEffect(() => {
         fetchUsers();
-    }, []);
+    }, [fetchUsers]);
 
     useEffect(() => {
         filterUsers();
-    }, [users, search]);
+    }, [users, search, filterUsers]);
+
 
     const fetchUsers = async () => {
         try {

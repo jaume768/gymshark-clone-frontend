@@ -20,7 +20,7 @@ const AdminCategories = () => {
 
     useEffect(() => {
         filterCategories();
-    }, [categories, search]);
+    }, [categories, search, filterCategories]);
 
     const fetchCategories = async () => {
         try {
