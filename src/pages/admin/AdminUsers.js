@@ -1,5 +1,5 @@
 // src/pages/admin/AdminUsers.js
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import api from '../../utils/api';
 import { toast } from 'react-toastify';
 import '../css/AdminUsers.css';
@@ -10,18 +10,9 @@ const AdminUsers = () => {
     const [filteredUsers, setFilteredUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState('');
-    const { user: currentUser } = useAuth(); // Obtener el usuario actual
+    const { user: currentUser } = useAuth();
 
-    useEffect(() => {
-        fetchUsers();
-    }, [fetchUsers]);
-
-    useEffect(() => {
-        filterUsers();
-    }, [users, search, filterUsers]);
-
-
-    const fetchUsers = async () => {
+    const fetchUsers = useCallback(async () => {
         try {
             const res = await api.get('/admin/users');
             // Excluir al usuario actual
@@ -33,15 +24,19 @@ const AdminUsers = () => {
             toast.error('Error al obtener usuarios');
             setLoading(false);
         }
-    };
+    }, [currentUser._id]);
 
-    const filterUsers = () => {
+    useEffect(() => {
+        fetchUsers();
+    }, [fetchUsers]);
+
+    useEffect(() => {
         const lowerSearch = search.toLowerCase();
         const filtered = users.filter(user =>
             user.username.toLowerCase().includes(lowerSearch)
         );
         setFilteredUsers(filtered);
-    };
+    }, [users, search]);
 
     const handleSearchChange = (e) => {
         setSearch(e.target.value);
@@ -104,7 +99,7 @@ const AdminUsers = () => {
                                     {user.role !== 'admin' ? (
                                         <button onClick={() => handleUpdateRole(user._id, 'admin')}>Promover a Admin</button>
                                     ) : (
-                                        <button onClick={() => handleUpdateRole(user._id, 'user')}>Demover a Usuario</button>
+                                        <button onClick={() => handleUpdateRole(user._id, 'user')}>Degradar a Usuario</button>
                                     )}
                                     <button onClick={() => handleDelete(user._id)}>Eliminar</button>
                                 </td>

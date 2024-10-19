@@ -6,7 +6,6 @@ import '../css/AdminCategories.css';
 
 const AdminCategories = () => {
     const [categories, setCategories] = useState([]);
-    const [filteredCategories, setFilteredCategories] = useState([]);
     const [loading, setLoading] = useState(true);
     const [form, setForm] = useState({
         nombre: '',
@@ -19,13 +18,19 @@ const AdminCategories = () => {
     }, []);
 
     useEffect(() => {
-        filterCategories();
-    }, [categories, search, filterCategories]);
+        const lowerSearch = search.toLowerCase();
+        const filtered = categories.filter(category =>
+            category.nombre.toLowerCase().includes(lowerSearch)
+        );
+        setFilteredCategories(filtered);
+    }, [categories, search]);
+
+    const [filteredCategories, setFilteredCategories] = useState([]);
 
     const fetchCategories = async () => {
         try {
             const res = await api.get('/admin/categories');
-            // Exclude 'MEN' and 'WOMEN' categories
+            // Excluir categorías 'MEN' y 'WOMEN'
             const filtered = res.data.filter(
                 category => category.nombre.toUpperCase() !== 'MEN' && category.nombre.toUpperCase() !== 'WOMEN'
             );
@@ -36,14 +41,6 @@ const AdminCategories = () => {
             toast.error('Error al obtener categorías');
             setLoading(false);
         }
-    };
-
-    const filterCategories = () => {
-        const lowerSearch = search.toLowerCase();
-        const filtered = categories.filter(category =>
-            category.nombre.toLowerCase().includes(lowerSearch)
-        );
-        setFilteredCategories(filtered);
     };
 
     const handleChange = (e) => {
@@ -88,7 +85,6 @@ const AdminCategories = () => {
     };
 
     const handleUpdate = async (id) => {
-        // Implementar lógica para actualizar categorías (puede ser mediante un modal o redirigiendo a una página de edición)
         toast.info('Función de actualización no implementada aún');
     };
 
@@ -147,7 +143,6 @@ const AdminCategories = () => {
             </div>
         </div>
     );
-
 };
 
 export default AdminCategories;

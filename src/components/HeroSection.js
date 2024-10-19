@@ -1,6 +1,6 @@
+// src/components/HeroSection.js
 import React from 'react';
 import './css/HeroSection.css';
-import heroImage from '../assets/images/hero.png';
 import { Link } from 'react-router-dom';
 
 const HeroSection = () => {

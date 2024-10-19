@@ -6,6 +6,7 @@ import '../css/AdminProducts.css';
 
 const AdminProducts = () => {
     const [products, setProducts] = useState([]);
+    const [filteredProducts, setFilteredProducts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [genderCategories, setGenderCategories] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -27,9 +28,12 @@ const AdminProducts = () => {
     }, []);
 
     useEffect(() => {
-        filterProducts();
-    }, [search, products.length, filterProducts]);
-
+        const lowerSearch = search.toLowerCase();
+        const filtered = products.filter(product =>
+            product.nombre.toLowerCase().includes(lowerSearch)
+        );
+        setFilteredProducts(filtered);
+    }, [products, search]);
 
     const fetchProducts = async () => {
         try {
@@ -67,14 +71,6 @@ const AdminProducts = () => {
             console.error('Error al obtener categorías de género:', error);
             toast.error('Error al obtener categorías de género');
         }
-    };
-
-    const filterProducts = () => {
-        const lowerSearch = search.toLowerCase();
-        const filtered = products.filter(product =>
-            product.nombre.toLowerCase().includes(lowerSearch)
-        );
-        setProducts(filtered);
     };
 
     const handleChange = (e) => {
@@ -275,11 +271,11 @@ const AdminProducts = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {products.map(product => (
+                            {filteredProducts.map(product => (
                                 <tr key={product._id}>
                                     <td>{product.nombre}</td>
                                     <td>{product.descripcion}</td>
-                                    <td>${product.precio.toFixed(2)}</td>
+                                    <td>{product.precio.toFixed(2)}€</td>
                                     <td>{product.categorias.map(cat => cat.nombre).join(', ')}</td>
                                     <td>
                                         <a href={product.imagen} target="_blank" rel="noopener noreferrer">
@@ -299,7 +295,6 @@ const AdminProducts = () => {
             </div>
         </div>
     );
-
 };
 
 export default AdminProducts;

@@ -16,7 +16,6 @@ const CheckoutForm = () => {
     const [clientSecret, setClientSecret] = useState('');
     const [products, setProducts] = useState([]);
     const [amountInEuros, setAmountInEuros] = useState(0);
-    const [amount, setAmount] = useState(0);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -47,7 +46,6 @@ const CheckoutForm = () => {
         const calculatedAmount = Math.round(calculatedAmountInEuros * 100);
 
         setAmountInEuros(calculatedAmountInEuros);
-        setAmount(calculatedAmount);
 
         if (calculatedAmountInEuros < 0.5) {
             toast.error('El monto mínimo para realizar una compra es de 0,50€');
@@ -66,7 +64,7 @@ const CheckoutForm = () => {
         };
 
         createPaymentIntent();
-    }, [products]);
+    }, [products, cartItems]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -88,7 +86,7 @@ const CheckoutForm = () => {
             toast.error(`Error en el pago: ${result.error.message}`);
         } else {
             if (result.paymentIntent.status === 'succeeded') {
-                toast.success('Pago exitoso!');
+                toast.success('¡Pago exitoso!');
                 clearCart();
                 navigate('/payment-success');
             }

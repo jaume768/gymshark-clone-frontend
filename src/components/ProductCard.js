@@ -1,15 +1,9 @@
+// src/components/ProductCard.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useCart } from '../context/CartContext';
 import './css/ProductCard.css';
 
 const ProductCard = ({ product }) => {
-    const { addToCart } = useCart();
-
-    const handleAddToCart = () => {
-        addToCart(product, 1);
-    };
-
     return (
         <div className="product-card">
             <Link to={`/product/${product._id}`} className="product-link">
