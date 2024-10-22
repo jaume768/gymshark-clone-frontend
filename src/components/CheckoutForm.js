@@ -17,6 +17,17 @@ const CheckoutForm = () => {
     const [products, setProducts] = useState([]);
     const [amountInEuros, setAmountInEuros] = useState(0);
 
+    // Campos adicionales
+    const [email, setEmail] = useState('');
+    const [acceptOffers, setAcceptOffers] = useState(false);
+    const [shippingInfo, setShippingInfo] = useState({
+        nombre: '',
+        direccion: '',
+        ciudad: '',
+        codigoPostal: '',
+        // Eliminamos el campo 'pais' del estado
+    });
+
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -76,9 +87,32 @@ const CheckoutForm = () => {
             return;
         }
 
+        // Validaciones adicionales
+        if (!email) {
+            toast.error('Por favor, ingresa tu email de contacto');
+            setLoading(false);
+            return;
+        }
+
+        if (!shippingInfo.nombre || !shippingInfo.direccion || !shippingInfo.ciudad || !shippingInfo.codigoPostal) {
+            toast.error('Por favor, completa toda la información de envío');
+            setLoading(false);
+            return;
+        }
+
         const result = await stripe.confirmCardPayment(clientSecret, {
             payment_method: {
                 card: elements.getElement(CardElement),
+                billing_details: {
+                    email: email,
+                    name: shippingInfo.nombre, // Correctamente ubicado aquí
+                    address: {
+                        line1: shippingInfo.direccion,
+                        city: shippingInfo.ciudad,
+                        postal_code: shippingInfo.codigoPostal,
+                        country: 'ES' // Asignamos directamente 'ES'
+                    }
+                }
             },
         });
 
@@ -87,6 +121,7 @@ const CheckoutForm = () => {
         } else {
             if (result.paymentIntent.status === 'succeeded') {
                 toast.success('¡Pago exitoso!');
+                // Aquí podrías enviar la información del pedido a tu backend
                 clearCart();
                 navigate('/payment-success');
             }
@@ -97,21 +132,74 @@ const CheckoutForm = () => {
 
     return (
         <form onSubmit={handleSubmit} className="checkout-form">
-            <h2>Resumen de tu compra</h2>
-            <ul className="product-list">
-                {cartItems.map((item) => {
-                    const product = products.find(p => p._id === item.producto);
-                    if (!product) return null;
-                    return (
-                        <li key={product._id}>
-                            {product.nombre} x {item.cantidad} - {(product.precio * item.cantidad).toFixed(2)}€
-                        </li>
-                    );
-                })}
-            </ul>
-            <h3>Total: {amountInEuros.toFixed(2)}€</h3>
-            <CardElement />
-            <button type="submit" disabled={!stripe || loading}>
+            <h2>Información de Contacto</h2>
+            <div className="form-group">
+                <label htmlFor="email">Email de Contacto</label>
+                <input
+                    type="email"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                />
+            </div>
+            <div className="form-group checkbox-group">
+                <input
+                    type="checkbox"
+                    id="acceptOffers"
+                    checked={acceptOffers}
+                    onChange={(e) => setAcceptOffers(e.target.checked)}
+                />
+                <label htmlFor="acceptOffers">Aceptar recibir ofertas y contenido exclusivo</label>
+            </div>
+
+            <h2>Información de Envío</h2>
+            <div className="form-group">
+                <label htmlFor="nombre">Nombre Completo</label>
+                <input
+                    type="text"
+                    id="nombre"
+                    value={shippingInfo.nombre}
+                    onChange={(e) => setShippingInfo({ ...shippingInfo, nombre: e.target.value })}
+                    required
+                />
+            </div>
+            <div className="form-group">
+                <label htmlFor="direccion">Dirección</label>
+                <input
+                    type="text"
+                    id="direccion"
+                    value={shippingInfo.direccion}
+                    onChange={(e) => setShippingInfo({ ...shippingInfo, direccion: e.target.value })}
+                    required
+                />
+            </div>
+            <div className="form-group">
+                <label htmlFor="ciudad">Ciudad</label>
+                <input
+                    type="text"
+                    id="ciudad"
+                    value={shippingInfo.ciudad}
+                    onChange={(e) => setShippingInfo({ ...shippingInfo, ciudad: e.target.value })}
+                    required
+                />
+            </div>
+            <div className="form-group">
+                <label htmlFor="codigoPostal">Código Postal</label>
+                <input
+                    type="text"
+                    id="codigoPostal"
+                    value={shippingInfo.codigoPostal}
+                    onChange={(e) => setShippingInfo({ ...shippingInfo, codigoPostal: e.target.value })}
+                    required
+                />
+            </div>
+
+            <h2>Información de Pago</h2>
+            <div className="form-group">
+                <CardElement options={{ hidePostalCode: true }} />
+            </div>
+            <button type="submit" disabled={!stripe || loading} className="btn-submit">
                 {loading ? 'Procesando...' : 'Pagar'}
             </button>
         </form>

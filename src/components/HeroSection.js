@@ -1,4 +1,3 @@
-// src/components/HeroSection.js
 import React from 'react';
 import './css/HeroSection.css';
 import { Link } from 'react-router-dom';
@@ -7,14 +6,14 @@ const HeroSection = () => {
     return (
         <div className="hero-container">
             <div className="hero-content">
-                <h1>NEW STUFF JUST DROPPED</h1>
-                <p>Grab a new fit, go gym, make progress easy.</p>
+                <h1>¡NUEVAS COSAS ACABAN DE LLEGAR!</h1>
+                <p>Consigue un nuevo look, ve al gimnasio, y progresa fácilmente.</p>
                 <div className="hero-buttons">
                     <Link to="/category/women" className="btn btn-women">
-                        <b>SHOP WOMEN</b>
+                        <b>MUJERES</b>
                     </Link>
                     <Link to="/category/men" className="btn btn-men">
-                        <b>SHOP MEN</b>
+                        <b>HOMBRES</b>
                     </Link>
                 </div>
             </div>

@@ -31,10 +31,10 @@ const Navbar = () => {
                     Inicio
                 </Link>
                 <Link to="/category/women" className="navbar__category" onClick={closeMobileMenu}>
-                    Women
+                    Mujeres
                 </Link>
                 <Link to="/category/men" className="navbar__category" onClick={closeMobileMenu}>
-                    Men
+                    Hombres
                 </Link>
                 <Link to="/cart" className="navbar__category" onClick={closeMobileMenu}>
                     <FaShoppingCart /> Carrito

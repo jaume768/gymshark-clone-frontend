@@ -1,4 +1,3 @@
-// src/components/PopularProductsSection.js
 import React, { useEffect, useState, useRef } from 'react';
 import api from '../utils/api';
 import ProductCard from './ProductCard';
@@ -72,7 +71,7 @@ const PopularProductsSection = () => {
             <div className="section__header">
                 <div className='title-header'>
                     <h2 className="featured-title">PRODUCTOS POPULARES</h2>
-                    <Link to="/category/populares" className="view-all">View All</Link>
+                    <Link to="/category/populares" className="view-all">Ver todo</Link>
                 </div>
                 <div className="carousel__controls">
                     <button onClick={handlePrev} className="carousel__btn">

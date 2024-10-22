@@ -1,0 +1,31 @@
+.checkout-page {
+    padding: 2rem;
+    background-color: #f9f9f9;
+    min-height: 80vh;
+}
+
+.checkout-page h1 {
+    text-align: center;
+    color: #333333;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+}
+
+.checkout-container {
+    display: flex;
+    gap: 2rem;
+}
+
+.checkout-left, .checkout-right {
+    flex: 1;
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 992px) {
+    .checkout-container {
+        flex-direction: column;
+    }
+}

@@ -70,8 +70,8 @@ const NewSeasonSection = () => {
         <div className="new-season-section">
             <div className="section__header">
                 <div className='title-header'>
-                    <h2 className="featured-title">NEW SEASON + NEW DROPS = MORE PROGRESS</h2>
-                    <Link to="/category/nuevos" className="view-all">View All</Link>
+                    <h2 className="featured-title">NUEVA TEMPORADA + NUEVOS LANZAMIENTOS = MÁS PROGRESO</h2>
+                    <Link to="/category/nuevos" className="view-all">Ver todo</Link>
                 </div>
                 <div className="carousel__controls">
                     <button onClick={handlePrev} className="carousel__btn">

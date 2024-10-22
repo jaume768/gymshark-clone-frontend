@@ -1,6 +1,8 @@
 import React from 'react';
 import CheckoutForm from '../components/CheckoutForm';
+import OrderSummary from '../components/OrderSummary';
 import { useCart } from '../context/CartContext';
+import './css/CheckoutPage.css';
 
 const CheckoutPage = () => {
     const { cartItems } = useCart();
@@ -12,7 +14,14 @@ const CheckoutPage = () => {
     return (
         <div className="checkout-page">
             <h1>Finalizar Compra</h1>
-            <CheckoutForm />
+            <div className="checkout-container">
+                <div className="checkout-left">
+                    <CheckoutForm />
+                </div>
+                <div className="checkout-right">
+                    <OrderSummary />
+                </div>
+            </div>
         </div>
     );
 };

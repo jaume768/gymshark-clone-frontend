@@ -1,4 +1,3 @@
-// src/pages/CartPage.js
 import React, { useEffect, useState } from 'react';
 import api from '../utils/api';
 import { useCart } from '../context/CartContext';
@@ -50,44 +49,76 @@ const CartPage = () => {
                 <p>Tu carrito está vacío.</p>
             ) : (
                 <>
-                    <table className="cart-table">
-                        <thead>
-                            <tr>
-                                <th>Producto</th>
-                                <th>Precio</th>
-                                <th>Cantidad</th>
-                                <th>Subtotal</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {cartItems.map((item) => {
-                                const product = products.find(p => p._id === item.producto);
-                                if (!product) return null;
-                                return (
-                                    <tr key={product._id}>
-                                        <td data-label="Producto">{product.nombre}</td>
-                                        <td data-label="Precio">{product.precio}€</td>
-                                        <td data-label="Cantidad">{item.cantidad}</td>
-                                        <td data-label="Subtotal">{(product.precio * item.cantidad).toFixed(2)}€</td>
-                                        <td data-label="Acciones">
-                                            <button onClick={() => handleRemove(product._id)} className="btn-remove">
-                                                Eliminar
-                                            </button>
-                                        </td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
+                    <div className="cart-table-container">
+                        <table className="cart-table">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Imagen</th>
+                                    <th>Precio</th>
+                                    <th>Cantidad</th>
+                                    <th>Subtotal</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {cartItems.map((item) => {
+                                    const product = products.find(p => p._id === item.producto);
+                                    if (!product) return null;
+                                    return (
+                                        <tr key={product._id}>
+                                            <td data-label="Producto">{product.nombre}</td>
+                                            <td data-label="Imagen">
+                                                <img src={product.imagen} alt={product.nombre} className="cart-product-image" />
+                                            </td>
+                                            <td data-label="Precio">{product.precio}€</td>
+                                            <td data-label="Cantidad">{item.cantidad}</td>
+                                            <td data-label="Subtotal">{(product.precio * item.cantidad).toFixed(2)}€</td>
+                                            <td data-label="Acciones">
+                                                <button onClick={() => handleRemove(product._id)} className="btn-remove">
+                                                    Eliminar
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="cart-cards">
+                        {cartItems.map((item) => {
+                            const product = products.find(p => p._id === item.producto);
+                            if (!product) return null;
+                            return (
+                                <div className="cart-card" key={product._id}>
+                                    <img src={product.imagen} alt={product.nombre} />
+                                    <div className="cart-card-details">
+                                        <p><strong>Producto:</strong> {product.nombre}</p>
+                                        <p><strong>Precio:</strong> {product.precio}€</p>
+                                        <p><strong>Cantidad:</strong> {item.cantidad}</p>
+                                        <p><strong>Subtotal:</strong> {(product.precio * item.cantidad).toFixed(2)}€</p>
+                                    </div>
+                                    <div className="cart-card-actions">
+                                        <button onClick={() => handleRemove(product._id)} className="btn-remove">
+                                            Eliminar
+                                        </button>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+
                     <div className="cart-summary">
                         <h2>Total: {total.toFixed(2)}€</h2>
-                        <button onClick={handleClear} className="btn-clear">
-                            Vaciar Carrito
-                        </button>
-                        <Link to="/checkout" className="btn-checkout">
-                            Proceder al Pago
-                        </Link>
+                        <div className="cart-summary-buttons">
+                            <button onClick={handleClear} className="btn-clear">
+                                Vaciar Carrito
+                            </button>
+                            <Link to="/checkout" className="btn-checkout">
+                                Proceder al Pago
+                            </Link>
+                        </div>
                     </div>
                 </>
             )}
