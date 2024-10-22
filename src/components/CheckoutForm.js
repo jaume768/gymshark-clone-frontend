@@ -15,7 +15,6 @@ const CheckoutForm = () => {
     const [loading, setLoading] = useState(false);
     const [clientSecret, setClientSecret] = useState('');
     const [products, setProducts] = useState([]);
-    const [amountInEuros, setAmountInEuros] = useState(0);
 
     // Campos adicionales
     const [email, setEmail] = useState('');
@@ -55,8 +54,6 @@ const CheckoutForm = () => {
         }, 0);
 
         const calculatedAmount = Math.round(calculatedAmountInEuros * 100);
-
-        setAmountInEuros(calculatedAmountInEuros);
 
         if (calculatedAmountInEuros < 0.5) {
             toast.error('El monto mínimo para realizar una compra es de 0,50€');
