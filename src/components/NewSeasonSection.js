@@ -57,11 +57,10 @@ const NewSeasonSection = () => {
             ]
         };
 
-        // Ajustar slidesToShow y añadir peeking effect
         if (totalProducts <= 4) {
             baseSettings.slidesToShow = totalProducts;
         } else {
-            baseSettings.slidesToShow = 4.2; // Muestra parte de la siguiente tarjeta
+            baseSettings.slidesToShow = 4.2;
         }
 
         baseSettings.responsive = baseSettings.responsive.map(bp => {
@@ -69,7 +68,7 @@ const NewSeasonSection = () => {
             if (totalProducts <= bpSlidesToShow) {
                 bp.settings.slidesToShow = totalProducts;
             } else {
-                bp.settings.slidesToShow = bpSlidesToShow + 0.2; // Muestra parte de la siguiente tarjeta
+                bp.settings.slidesToShow = bpSlidesToShow + 0.2;
             }
             return bp;
         });

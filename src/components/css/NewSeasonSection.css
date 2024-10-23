@@ -1,5 +1,6 @@
 .new-season-section {
-    padding: 2rem;
+    margin-top: 40px;
+    padding: 0rem 2rem;
     width: 100%;
     overflow: hidden;
 }
@@ -52,7 +53,7 @@
 }
 
 .new-season__products .slick-list {
-    overflow: visible; /* Permite que la siguiente tarjeta se asome */
+    overflow: visible;
 }
 
 .new-season__products .slick-slide {
@@ -61,7 +62,7 @@
 
 @media (max-width: 768px) {
     .carousel__controls {
-        display: none; /* Oculta las flechas en móvil */
+        display: none;
     }
 
     .featured-title {
