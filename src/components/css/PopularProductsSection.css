@@ -1,6 +1,7 @@
 .popular-products-section {
     padding: 2rem;
     width: 100%;
+    overflow: hidden;
 }
 
 .section__header {
@@ -46,11 +47,23 @@
     background-color: #f0f0f0;
 }
 
-.popular-products__slider .product-slide {
+.popular-products__slider {
+    position: relative;
+}
+
+.popular-products__slider .slick-list {
+    overflow: visible;
+}
+
+.popular-products__slider .slick-slide {
     padding: 0 0.5rem;
 }
 
 @media (max-width: 768px) {
+    .carousel__controls {
+        display: none;
+    }
+
     .featured-title {
         font-size: 1.2rem;
     }

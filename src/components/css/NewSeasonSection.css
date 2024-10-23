@@ -1,6 +1,7 @@
 .new-season-section {
     padding: 2rem;
     width: 100%;
+    overflow: hidden;
 }
 
 .section__header {
@@ -12,13 +13,14 @@
 
 .title-header {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
 }
 
 .featured-title {
     font-size: 1.5rem;
     color: #000000;
-    margin-bottom: 0.5rem;
+    margin: 0;
 }
 
 .view-all {
@@ -45,11 +47,23 @@
     background-color: #f0f0f0;
 }
 
-.new-season__products .product-slide {
+.new-season__products {
+    position: relative;
+}
+
+.new-season__products .slick-list {
+    overflow: visible; /* Permite que la siguiente tarjeta se asome */
+}
+
+.new-season__products .slick-slide {
     padding: 0 0.5rem;
 }
 
 @media (max-width: 768px) {
+    .carousel__controls {
+        display: none; /* Oculta las flechas en móvil */
+    }
+
     .featured-title {
         font-size: 1.2rem;
     }

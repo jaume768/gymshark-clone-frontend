@@ -28,35 +28,56 @@ const NewSeasonSection = () => {
         fetchNewProducts();
     }, []);
 
-    const settings = {
-        dots: false,
-        infinite: false,
-        speed: 500,
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        initialSlide: 0,
-        centerMode: false,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 3,
+    const getSettings = () => {
+        const totalProducts = products.length;
+
+        const baseSettings = {
+            dots: false,
+            infinite: false,
+            speed: 500,
+            slidesToScroll: 1,
+            initialSlide: 0,
+            centerMode: false,
+            slidesToShow: 4,
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 1,
+                    }
+                },
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                    }
                 }
-            },
-            {
-                breakpoint: 768,
-                settings: {
-                    slidesToShow: 2,
-                }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 1,
-                }
+            ]
+        };
+
+        // Ajustar slidesToShow y añadir peeking effect
+        if (totalProducts <= 4) {
+            baseSettings.slidesToShow = totalProducts;
+        } else {
+            baseSettings.slidesToShow = 4.2; // Muestra parte de la siguiente tarjeta
+        }
+
+        baseSettings.responsive = baseSettings.responsive.map(bp => {
+            const bpSlidesToShow = bp.settings.slidesToShow;
+            if (totalProducts <= bpSlidesToShow) {
+                bp.settings.slidesToShow = totalProducts;
+            } else {
+                bp.settings.slidesToShow = bpSlidesToShow + 0.2; // Muestra parte de la siguiente tarjeta
             }
-        ]
+            return bp;
+        });
+
+        return baseSettings;
     };
+
+    const settings = getSettings();
 
     const handlePrev = () => {
         sliderRef.current.slickPrev();
