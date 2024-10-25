@@ -3,7 +3,8 @@
     border: 1px solid #dddddd;
     border-radius: 8px;
     text-decoration: none;
-    text-align: center;
+    text-align: left;
+    text-decoration: none;
     background-color: #ffffff;
     transition: box-shadow 0.3s ease, transform 0.3s ease;
     text-decoration: none;
@@ -24,11 +25,13 @@
 }
 
 .product-info {
+    text-decoration: none;
     padding: 1rem;
 }
 
 .product-name {
     color: #0000ff;
+    text-decoration: none;
     margin: 0.5rem 0;
     font-size: 1rem;
     font-weight: 600;
@@ -37,10 +40,10 @@
 .product-price {
     font-size: 1.1rem;
     color: #333333;
+    text-decoration: none;
     margin: 0;
 }
 
-/* Responsividad para ProductCard */
 @media (max-width: 480px) {
     .product-card {
         border: none;

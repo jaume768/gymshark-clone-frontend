@@ -1,0 +1,79 @@
+.winter-products-section {
+    margin-top: 15px;
+    padding: 0rem 2rem;
+    width: 100%;
+    overflow: hidden;
+}
+
+.section__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.title-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.featured-title {
+    font-size: 1.5rem;
+    color: #000000;
+    margin: 0;
+}
+
+.view-all {
+    color: #0000ff;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.carousel__controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.carousel__btn {
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 50%;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.carousel__btn:hover {
+    background-color: #f0f0f0;
+}
+
+.winter-products__slider {
+    position: relative;
+}
+
+.winter-products__slider .slick-list {
+    overflow: visible;
+}
+
+.winter-products__slider .slick-slide {
+    padding: 0 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .carousel__controls {
+        display: none;
+    }
+
+    .featured-title {
+        font-size: 1.2rem;
+    }
+
+    .view-all {
+        font-size: 0.9rem;
+    }
+
+    .carousel__btn {
+        padding: 0.4rem;
+    }
+}
