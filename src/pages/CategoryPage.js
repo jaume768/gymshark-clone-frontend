@@ -1,4 +1,3 @@
-// src/pages/CategoryPage.js
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../utils/api';
@@ -27,7 +26,13 @@ const CategoryPage = () => {
 
     return (
         <div className="category-page">
-            <h2 className="category-title">{category.charAt(0).toUpperCase() + category.slice(1)}</h2>
+            <h2 className="category-title">
+                {category.charAt(0).toUpperCase() + category.slice(1)}
+            </h2>
+            <p className="category-subtitle">Lanzamientos de nuevos productos</p>
+            <p className="category-description">
+                Nuevos lanzamientos, nuevas razones para ir al gimnasio. De nada.
+            </p>
             <div className="category__products">
                 {products.length > 0 ? (
                     products.map((product) => (
