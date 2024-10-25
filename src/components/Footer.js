@@ -4,7 +4,7 @@ import './css/Footer.css';
 const Footer = () => {
     return (
         <footer className="footer">
-            <p>&copy; {new Date().getFullYear()} DeportesStore. Todos los derechos reservados.</p>
+            <p>&copy; {new Date().getFullYear()} Jaume Fernández. Todos los derechos reservados.</p>
         </footer>
     );
 };
