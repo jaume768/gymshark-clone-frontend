@@ -1,4 +1,3 @@
-// src/components/CheckoutForm.js
 import React, { useState, useEffect } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import api from '../utils/api';
@@ -13,10 +12,8 @@ const CheckoutForm = () => {
     const navigate = useNavigate();
     const { cartItems, clearCart } = useCart();
     const [loading, setLoading] = useState(false);
-    const [clientSecret, setClientSecret] = useState('');
     const [products, setProducts] = useState([]);
 
-    // Campos adicionales
     const [email, setEmail] = useState('');
     const [acceptOffers, setAcceptOffers] = useState(false);
     const [shippingInfo, setShippingInfo] = useState({
@@ -24,7 +21,6 @@ const CheckoutForm = () => {
         direccion: '',
         ciudad: '',
         codigoPostal: '',
-        // Eliminamos el campo 'pais' del estado
     });
 
     useEffect(() => {
@@ -45,8 +41,29 @@ const CheckoutForm = () => {
         }
     }, [cartItems]);
 
-    useEffect(() => {
-        if (products.length === 0) return;
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        console.log("prova");
+        setLoading(true);
+
+        if (!stripe || !elements) {
+            toast.error('Stripe no está cargado');
+            setLoading(false);
+            return;
+        }
+
+        // Validaciones
+        if (!email) {
+            toast.error('Por favor, ingresa tu email de contacto');
+            setLoading(false);
+            return;
+        }
+
+        if (products.length === 0) {
+            toast.error('No hay productos en el carrito');
+            setLoading(false);
+            return;
+        }
 
         const calculatedAmountInEuros = cartItems.reduce((acc, item) => {
             const product = products.find(p => p._id === item.producto);
@@ -57,74 +74,66 @@ const CheckoutForm = () => {
 
         if (calculatedAmountInEuros < 0.5) {
             toast.error('El monto mínimo para realizar una compra es de 0,50€');
-            return;
-        }
-
-        const createPaymentIntent = async () => {
-            console.log('Amount to charge:', calculatedAmount);
-            try {
-                const { data } = await api.post('/payment/create-payment-intent', { amount: calculatedAmount });
-                setClientSecret(data.clientSecret);
-            } catch (error) {
-                toast.error('Error al iniciar el pago');
-                console.log(error);
-            }
-        };
-
-        createPaymentIntent();
-    }, [products, cartItems]);
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        setLoading(true);
-
-        if (!stripe || !elements) {
-            toast.error('Stripe no está cargado');
             setLoading(false);
             return;
         }
 
-        // Validaciones adicionales
-        if (!email) {
-            toast.error('Por favor, ingresa tu email de contacto');
-            setLoading(false);
-            return;
-        }
+        try {
+            const orderItems = cartItems.map((item) => {
+                const product = products.find(p => p._id === item.producto);
+                return {
+                    producto: product._id,
+                    cantidad: item.cantidad,
+                    precio: product.precio,
+                };
+            });
 
-        if (!shippingInfo.nombre || !shippingInfo.direccion || !shippingInfo.ciudad || !shippingInfo.codigoPostal) {
-            toast.error('Por favor, completa toda la información de envío');
-            setLoading(false);
-            return;
-        }
+            const orderData = {
+                items: orderItems,
+                total: calculatedAmountInEuros,
+                shippingInfo,
+            };
 
-        const result = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: {
-                card: elements.getElement(CardElement),
-                billing_details: {
-                    email: email,
-                    name: shippingInfo.nombre, // Correctamente ubicado aquí
-                    address: {
-                        line1: shippingInfo.direccion,
-                        city: shippingInfo.ciudad,
-                        postal_code: shippingInfo.codigoPostal,
-                        country: 'ES' // Asignamos directamente 'ES'
-                    }
+            const orderResponse = await api.post('/orders', orderData);
+            const createdOrder = orderResponse.data;
+
+            const paymentIntentResponse = await api.post('/payment/create-payment-intent', {
+                amount: calculatedAmount,
+                orderId: createdOrder._id,
+            });
+            const { clientSecret } = paymentIntentResponse.data;
+
+            const result = await stripe.confirmCardPayment(clientSecret, {
+                payment_method: {
+                    card: elements.getElement(CardElement),
+                    billing_details: {
+                        email: email,
+                        name: shippingInfo.nombre,
+                        address: {
+                            line1: shippingInfo.direccion,
+                            city: shippingInfo.ciudad,
+                            postal_code: shippingInfo.codigoPostal,
+                            country: 'ES',
+                        },
+                    },
+                },
+            });
+
+            if (result.error) {
+                toast.error(`Error en el pago: ${result.error.message}`);
+            } else {
+                if (result.paymentIntent.status === 'succeeded') {
+                    toast.success('¡Pago exitoso!');
+                    clearCart();
+                    navigate('/payment-success');
                 }
-            },
-        });
-
-        if (result.error) {
-            toast.error(`Error en el pago: ${result.error.message}`);
-        } else {
-            if (result.paymentIntent.status === 'succeeded') {
-                toast.success('¡Pago exitoso!');
-                // Aquí podrías enviar la información del pedido a tu backend
-                clearCart();
-                navigate('/payment-success');
             }
+        } catch (error) {
+            toast.error('Error al procesar el pago');
+            console.log(error);
+        } finally {
+            setLoading(false);
         }
-
-        setLoading(false);
     };
 
     return (

@@ -40,3 +40,40 @@
 .btn-logout:hover {
     background-color: #ff1a1a;
 }
+
+.orders-section {
+    margin-top: 2rem;
+}
+
+.orders-section h2 {
+    margin-bottom: 1rem;
+    color: #0000ff;
+}
+
+.order {
+    border: 1px solid #dddddd;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+.order h3 {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.order ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.order li {
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.order li:last-child {
+    border-bottom: none;
+}
