@@ -54,6 +54,7 @@
 }
 
 .auth-form {
+    margin:10px auto;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -72,6 +73,7 @@
 
 .form-group input {
     padding: 0.75rem;
+    width: 300px;
     border: 1px solid #cccccc;
     border-radius: 4px;
     font-size: 1rem;
@@ -79,6 +81,7 @@
 
 .btn-submit {
     padding: 0.75rem;
+    width: 300px;
     background-color: #000000;
     color: #ffffff;
     border: none;
@@ -93,6 +96,11 @@
 }
 
 @media (max-width: 767px) {
+
+    .auth-form {
+        margin:0;
+    }
+
     .auth-form-container {
         padding: 2rem;
         margin: auto auto auto auto;
@@ -108,5 +116,13 @@
 
     .auth-image {
         display: none;
+    }
+
+    .form-group input {
+        width: 100%;
+    }
+
+    .btn-submit {
+        width: 100%;
     }
 }
