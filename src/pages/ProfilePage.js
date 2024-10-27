@@ -31,38 +31,49 @@ const ProfilePage = () => {
 
     return (
         <div className="profile-page">
-            <h1>Mi Perfil</h1>
-            <div className="profile-info">
-                <p><strong>Nombre:</strong> {user.nombre || user.username}</p>
-                <p><strong>Email:</strong> {user.email}</p>
-            </div>
+            <header className="profile-header">
+                <h2 className="profile-title">Bienvenido, {user.nombre || user.username}</h2>
+                <button onClick={logout} className="btn-logout">
+                    Cerrar Sesión
+                </button>
+            </header>
 
-            <div className="orders-section">
-                <h2>Mis Compras</h2>
-                {orders.length === 0 ? (
-                    <p>No has realizado ninguna compra.</p>
-                ) : (
-                    orders.map(order => (
-                        <div key={order._id} className="order">
-                            <p><strong>Fecha:</strong> {new Date(order.createdAt).toLocaleDateString()}</p>
-                            <p><strong>Total:</strong> €{order.total.toFixed(2)}</p>
-                            <p><strong>Estado:</strong> {order.estado}</p>
-                            <h3>Productos:</h3>
-                            <ul>
-                                {order.items.map(item => (
-                                    <li key={item._id}>
-                                        {item.producto.nombre} - Cantidad: {item.cantidad} - Precio: €{item.precio.toFixed(2)}
-                                    </li>
-                                ))}
-                            </ul>
+            <div className="profile-content">
+                <section className="profile-info">
+                    <h3>Información de Perfil</h3>
+                    <p><strong>Nombre:</strong> {user.nombre || user.username}</p>
+                    <p><strong>Email:</strong> {user.email}</p>
+                </section>
+
+                <section className="orders-section">
+                    <h3>Mis Compras</h3>
+                    {orders.length === 0 ? (
+                        <p>No has realizado ninguna compra.</p>
+                    ) : (
+                        <div className="orders-list">
+                            {orders.map(order => (
+                                <div key={order._id} className="order-card">
+                                    <div className="order-header">
+                                        <span><strong>Fecha:</strong> {new Date(order.createdAt).toLocaleDateString()}</span>
+                                        <span><strong>Total:</strong>{order.total.toFixed(2)} €</span>
+                                    </div>
+                                    <p><strong>Estado:</strong> {order.estado}</p>
+                                    <div className="order-products">
+                                        <h4>Productos:</h4>
+                                        <ul>
+                                            {order.items.map(item => (
+                                                <li key={item._id}>
+                                                    {item.producto.nombre} - Cantidad: {item.cantidad} - Precio: €{item.precio.toFixed(2)}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
-                    ))
-                )}
+                    )}
+                </section>
             </div>
-
-            <button onClick={logout} className="btn-logout">
-                Cerrar Sesión
-            </button>
         </div>
     );
 };
