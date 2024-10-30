@@ -19,7 +19,7 @@
 }
 
 .product-page__details h2 {
-    color: #0000ff;
+    color: #000000;
     margin-bottom: 1rem;
     font-size: 2rem;
     font-weight: bold;
@@ -33,7 +33,7 @@
 
 .product-page__details .price {
     font-size: 1.5rem;
-    color: #0000ff;
+    color: #000000;
     font-weight: bold;
 }
 

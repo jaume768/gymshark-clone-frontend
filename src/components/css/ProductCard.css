@@ -32,7 +32,7 @@
 .product-name {
     color: #0000ff;
     text-decoration: none;
-    margin: 0.5rem 0;
+    margin: 0.5rem 0.5rem;
     font-size: 1rem;
     font-weight: 600;
 }
@@ -41,7 +41,7 @@
     font-size: 1.1rem;
     color: #333333;
     text-decoration: none;
-    margin: 0;
+    margin: 0.5rem;
 }
 
 @media (max-width: 480px) {
