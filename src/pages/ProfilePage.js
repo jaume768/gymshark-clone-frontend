@@ -63,7 +63,7 @@ const ProfilePage = () => {
                                         <ul>
                                             {order.items.map(item => (
                                                 <li key={item._id}>
-                                                    {item.producto.nombre} - Cantidad: {item.cantidad} - Precio: €{item.precio.toFixed(2)}
+                                                    {item.producto.nombre} - Cantidad: {item.cantidad} - Precio: {item.precio.toFixed(2)}€
                                                 </li>
                                             ))}
                                         </ul>
